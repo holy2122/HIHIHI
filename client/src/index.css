@@ -1,0 +1,179 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Pretendard', sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  /* Medical Trust Palette: Clinical Slate, Deep Navy, Hospital Teal & Mint */
+  --primary: #0284c7; /* Sky 600 */
+  --primary-foreground: #ffffff;
+  --secondary: #0d9488; /* Teal 600 */
+  --secondary-foreground: #ffffff;
+  --radius: 0.75rem;
+  --background: #f8fafc; /* Slate 50 */
+  --foreground: #0f172a; /* Slate 900 */
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f0fdfa; /* Teal 50 */
+  --accent-foreground: #0f766e;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0284c7;
+}
+
+.dark {
+  --background: #090d16;
+  --foreground: #f8fafc;
+  --card: #111827;
+  --card-foreground: #f8fafc;
+  --popover: #111827;
+  --popover-foreground: #f8fafc;
+  --primary: #38bdf8;
+  --primary-foreground: #090d16;
+  --secondary: #2dd4bf;
+  --secondary-foreground: #090d16;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #134e4a;
+  --accent-foreground: #ccfbf1;
+  --destructive: #f87171;
+  --destructive-foreground: #ffffff;
+  --border: #1e293b;
+  --input: #1e293b;
+  --ring: #38bdf8;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body,
+  #root {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Glassmorphism and Custom Accents */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.gradient-mesh {
+  background-image: radial-gradient(at 10% 20%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+                    radial-gradient(at 90% 10%, rgba(20, 184, 166, 0.12) 0px, transparent 50%),
+                    radial-gradient(at 50% 90%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
+}
+
+/* 기준 설명표 공통 규칙: 모바일에서도 내용 사이의 불필요한 여백을 최소화합니다. */
+.medical-criteria-card table th,
+.medical-criteria-card table td,
+.compact-medical-table th,
+.compact-medical-table td {
+  padding: 0.28rem 0.25rem !important;
+  text-align: center;
+  font-size: 0.86rem;
+}
+
+.medical-criteria-card table,
+.compact-medical-table {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  table-layout: auto;
+}
+
+/* 진단기준 표는 바깥 테두리 안쪽을 가득 채워 좌우 빈 공간을 없앱니다. */
+.medical-criteria-card table {
+  width: 100%;
+  max-width: none;
+}
+
+/* 이상지질혈증의 LDL·총콜레스테롤·중성지방·HDL 묶음도 표 폭에 맞춥니다. */
+.medical-criteria-card .space-y-3 > div {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+/* 고혈압 기준표는 모바일에서도 분류·수축기·이완기 열을 서로 밀착해 한 줄로 표시합니다. */
+.hypertension-criteria-table {
+  table-layout: fixed;
+  width: 100% !important;
+}
+
+.hypertension-criteria-table th,
+.hypertension-criteria-table td {
+  white-space: nowrap;
+  padding-inline: 0.12rem !important;
+  letter-spacing: -0.035em;
+}
+
+.hypertension-criteria-table th:first-child,
+.hypertension-criteria-table td:first-child {
+  width: 42%;
+}
+
+.hypertension-criteria-table th:nth-child(2),
+.hypertension-criteria-table td:nth-child(2),
+.hypertension-criteria-table th:nth-child(3),
+.hypertension-criteria-table td:nth-child(3) {
+  width: 29%;
+}
+
+@media (max-width: 639px) {
+  .medical-criteria-card table th,
+  .medical-criteria-card table td,
+  .compact-medical-table th,
+  .compact-medical-table td {
+    padding: 0.24rem 0.2rem !important;
+    font-size: 0.82rem;
+  }
+
+  .hypertension-criteria-table th,
+  .hypertension-criteria-table td {
+    font-size: 0.68rem;
+    padding-block: 0.28rem !important;
+  }
+}

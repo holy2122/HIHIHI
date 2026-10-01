@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Medicare On Health Condition Data",
+  "description": "8대 질환의 기준, 키워드별 행동 가이드, 논문 근거, 유튜브 영상을 관리하는 데이터 파일입니다.",
+  "type": "array",
+  "minItems": 8,
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "englishName", "shortDesc", "category", "badge", "normalRangeLabel", "observationThreshold", "urgency", "colorTone", "keywords"],
+    "properties": {
+      "id": { "type": "string", "description": "질환 고유 ID" },
+      "name": { "type": "string", "description": "질환명" },
+      "englishName": { "type": "string" },
+      "shortDesc": { "type": "string", "description": "STEP 1 상단 요약" },
+      "category": { "type": "string" },
+      "badge": { "type": "string" },
+      "normalRangeLabel": { "type": "string" },
+      "observationThreshold": { "type": "string", "description": "요관찰 기준" },
+      "urgency": { "enum": ["관리필요", "주의요망", "적극개선"] },
+      "colorTone": { "type": "object" },
+      "keywords": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["id", "tag", "title", "subtitle", "shortActionSummary", "actionSteps", "keyRules", "evidence", "video"],
+          "properties": {
+            "id": { "type": "string", "description": "키워드 고유 ID" },
+            "tag": { "type": "string", "description": "화면에 표시할 키워드명" },
+            "title": { "type": "string", "description": "STEP 3 가이드 제목" },
+            "subtitle": { "type": "string" },
+            "shortActionSummary": { "type": "string", "description": "행동 가이드 한 줄 요약" },
+            "actionSteps": { "type": "array", "description": "세부 실천 단계" },
+            "keyRules": { "type": "array", "items": { "type": "string" } },
+            "evidence": {
+              "type": "object",
+              "required": ["paperTitle", "journal", "year", "authors", "coreSummary", "sourceUrl", "evidenceGrade"],
+              "properties": {
+                "paperTitle": { "type": "string" },
+                "journal": { "type": "string" },
+                "year": { "type": "integer" },
+                "authors": { "type": "string" },
+                "coreSummary": { "type": "string" },
+                "sourceUrl": { "type": "string", "format": "uri" },
+                "evidenceGrade": { "type": "string" },
+                "sampleSizeOrMethod": { "type": "string" }
+              }
+            },
+            "video": {
+              "type": "object",
+              "required": ["title", "channel", "youtubeId", "duration", "summary", "difficulty", "targetTimePerDay"],
+              "properties": {
+                "title": { "type": "string" },
+                "channel": { "type": "string" },
+                "youtubeId": { "type": "string", "description": "YouTube 영상 ID 또는 URL에서 v= 뒤 문자열" },
+                "duration": { "type": "string" },
+                "summary": { "type": "string" },
+                "difficulty": { "enum": ["초급", "중급", "고급"] },
+                "targetTimePerDay": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

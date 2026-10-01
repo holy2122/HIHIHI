@@ -1,0 +1,11 @@
+const fs = require("fs");
+const path = require("path");
+const file = path.resolve(__dirname, "../client/public/healthData.json");
+const data = JSON.parse(fs.readFileSync(file, "utf8"));
+const diabetes = data.find((condition) => condition.id === "diabetes");
+if (!diabetes) throw new Error("diabetes condition not found");
+const topic = diabetes.keywords.find((keyword) => keyword.id === "diabetes-diet");
+if (!topic) throw new Error("diabetes-diet keyword not found");
+topic.tag = "식이습관";
+fs.writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`);
+console.log(`Updated diabetes diet tag to: ${topic.tag}`);
